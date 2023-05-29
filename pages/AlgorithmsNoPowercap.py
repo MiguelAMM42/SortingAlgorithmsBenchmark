@@ -8,8 +8,8 @@ from helpers.plots import showScatterPlot
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-__completePath__ = os.path.join(APP_ROOT, f"../results/no_powercap/algorithms_clean.csv")
-__meanPath__ = os.path.join(APP_ROOT, f"../results/no_powercap/algorithms_averages.csv")
+__completePath__ = os.path.join(APP_ROOT, f"../static/results/no_powercap/algorithms_clean.csv")
+__meanPath__ = os.path.join(APP_ROOT, f"../static/results/no_powercap/algorithms_averages.csv")
 with open(__completePath__, "r") as fCSVComplete:
     completeDF = pd.read_csv(fCSVComplete)
 with open(__meanPath__, "r") as fCSVMean:
