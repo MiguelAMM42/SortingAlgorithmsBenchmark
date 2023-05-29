@@ -1,9 +1,8 @@
 import streamlit as st
 import pandas as pd
 import os
-from helpers.variables import algorithms, sizes, style
-from helpers.plots import showScatterPlot
-
+from helpers.plots import *
+from helpers.UIs import *
 
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -15,25 +14,38 @@ with open(__completePath__, "r") as fCSVComplete:
 with open(__meanPath__, "r") as fCSVMean:
     meanDF = pd.read_csv(fCSVMean)
 
+# ---------------------------------------------------- #
+
+
 st.title("Sorting Algorithms Benchmarking")
 
+st.header("Main Plots")
 
-col1, col2, col3 = st.columns(3)
+ScatterPlotEnergyTimeUI(completeDF, meanDF)
 
-with col1:
-    optionSize = st.selectbox('What input size do you want to see?', sizes)
-with col2:
-    optionAlg = st.selectbox('What algorithm do you want to see?', algorithms)
-with col3:
-    optionStyle = st.selectbox('What style do you want to see?', style)
+st.divider()
+
+st.header("Comparing Algorithms")
+
+st.subheader("By Time")
+
+BarPlotTimeSizeUI(completeDF)
+
+st.subheader("By Energy Consumption")
+
+BarPlotEnergySizeUI(completeDF)
+
+st.subheader("By Energy and Time")
+
+BarLinePlotLanguageEnergyTimeUI(meanDF)
 
 
-if optionStyle == "Complete":
-    showDF = completeDF
-else:
-    showDF = meanDF
 
-showScatterPlot(showDF, optionSize, optionAlg)
+
+
+
+
+
 
 
     
