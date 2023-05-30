@@ -209,5 +209,245 @@ def showBarLinePlotLanguageEnergyTime(df, optionSize, optionAlg):
     # Show the plot using Streamlit
     st.plotly_chart(fig)
 
+    
+def showBarLinePlotLanguageEnergyMemory(df, optionSize, optionAlg):
+    # Group the data by algorithm and size
+
+    filtered_data = df[(df["Algorithm"] == algorithmsDict[optionAlg]) & (df["Size"] == optionSize)]
+
+    st.write(f"#### {optionAlg} - {optionSize} elements")
+
+    # Create the bar trace for the 'Package' values
+    bar_trace = go.Bar(
+        x=filtered_data['Language'],
+        y=filtered_data['Package'],
+        name='Energy (Joules)'
+    )
+
+    # Create the line trace for the 'Memory' values
+    line_trace = go.Scatter(
+        x=filtered_data['Language'],
+        y=filtered_data['Memory(MB)'],
+        name='Memory (MB)',
+        yaxis='y2'
+    )
+
+    # Create the data list with both traces
+    data = [bar_trace, line_trace]
+
+    # Create the layout with two y-axes
+    layout = go.Layout(
+        xaxis=dict(title='Language'),
+        yaxis=dict(title='Energy (Joules)'),
+        yaxis2=dict(title='Memory (MB)', overlaying='y', side='right')
+    )
+
+    # Create the figure
+    fig = go.Figure(data=data, layout=layout)
+
+    # Show the plot using Streamlit
+    st.plotly_chart(fig)
 
 
+def showBarPlotTimeLanguage(df,optionLanguage):
+    # Filter the data by language
+    filtered_data = df[df['Language'] == optionLanguage]
+    
+    st.write(f"#### {optionLanguage} - Time (sec)")
+
+    # Group the data by algorithm and calculate the mean time
+    df_time = filtered_data.groupby('Algorithm')['Time(sec)'].mean().reset_index()
+
+    # Create the bar plot using Plotly Express
+    fig = px.bar(df_time, x='Algorithm', y='Time(sec)', title=optionLanguage)
+    fig.update_yaxes(title='Time (sec)')
+
+    # Show the plot using Streamlit
+    st.plotly_chart(fig)
+
+
+def showBarPlotEnergyLanguage(df,optionLanguage):
+    # Filter the data by language
+    filtered_data = df[df['Language'] == optionLanguage]
+    
+    st.write(f"#### {optionLanguage} - Energy (Joules)")
+
+    # Group the data by algorithm and calculate the mean time
+    df_energy = filtered_data.groupby('Algorithm')['Package'].mean().reset_index()
+
+    # Create the bar plot using Plotly Express
+    fig = px.bar(df_energy, x='Algorithm', y='Package', title=optionLanguage)
+    fig.update_yaxes(title='Energy (Joules)')
+
+    # Show the plot using Streamlit
+    st.plotly_chart(fig)
+
+def showBarPlotMemoryLanguage(df,optionLanguage):
+    # Filter the data by language
+    filtered_data = df[df['Language'] == optionLanguage]
+    
+    st.write(f"#### {optionLanguage} - Memory (MB)")
+
+    # Group the data by algorithm and calculate the mean time
+    df_memory = filtered_data.groupby('Algorithm')['Memory(MB)'].mean().reset_index()
+
+    # Create the bar plot using Plotly Express
+    fig = px.bar(df_memory, x='Algorithm', y='Memory(MB)', title=optionLanguage)
+    fig.update_yaxes(title='Memory (MB)')
+
+    # Show the plot using Streamlit
+    st.plotly_chart(fig)
+
+
+def showBarLinePlotLanguageEnergyTimePerAlgorithm(df, optionSize, optionLanguage):
+    # Filter the data by size and language
+    filtered_data = df[(df['Size'] == optionSize) & (df['Language'] == optionLanguage)]
+
+    st.write(f"#### {optionLanguage} - Size: {optionSize}")
+
+    # Create the bar trace for the 'Package' values
+    bar_trace = go.Bar(
+        x=filtered_data['Algorithm'],
+        y=filtered_data['Package'],
+        name='Energy (Joules)',
+    )
+
+    # Create the line trace for the 'Time' values
+    line_trace = go.Scatter(
+        x=filtered_data['Algorithm'],
+        y=filtered_data['Time(sec)'],
+        name='Time (sec)',
+        yaxis='y2',
+    )
+
+    # Create the data list with both traces
+    data = [bar_trace, line_trace]
+
+    # Create the layout with two y-axes
+    layout = go.Layout(
+        xaxis=dict(title='Algorithm'),
+        yaxis=dict(title='Energy (Joules)'),
+        yaxis2=dict(title='Time (sec)', overlaying='y', side='right')
+    )
+
+    # Create the figure
+    fig = go.Figure(data=data, layout=layout)
+
+    # Show the plot using Streamlit
+    st.plotly_chart(fig)
+
+
+def showBarLinePlotLanguageEnergyMemoryPerAlgorithm(df, optionSize, optionLanguage):
+    # Filter the data by size and language
+    filtered_data = df[(df['Size'] == optionSize) & (df['Language'] == optionLanguage)]
+
+    st.write(f"#### {optionLanguage} - Size: {optionSize}")
+
+    # Create the bar trace for the 'Energy' values
+    bar_trace = go.Bar(
+        x=filtered_data['Algorithm'],
+        y=filtered_data['Package'],
+        name='Energy (Joules)',
+    )
+
+    # Create the line trace for the 'Memory' values
+    line_trace = go.Scatter(
+        x=filtered_data['Algorithm'],
+        y=filtered_data['Memory(MB)'],
+        name='Memory (MB)',
+        yaxis='y2',
+    )
+
+    # Create the data list with both traces
+    data = [bar_trace, line_trace]
+
+    # Create the layout with two y-axes
+    layout = go.Layout(
+        xaxis=dict(title='Algorithm'),
+        yaxis=dict(title='Energy (Joules)'),
+        yaxis2=dict(title='Memory (MB)', overlaying='y', side='right')
+    )
+
+    # Create the figure
+    fig = go.Figure(data=data, layout=layout)
+
+    # Show the plot using Streamlit
+    st.plotly_chart(fig)
+
+
+
+
+def showBarLinePlotLanguageEnergyTimePerSize(df, optionAlg, optionLang):
+    # Filter the data by language and algorithm
+    filtered_data = df[(df['Language'] == optionLang) & (df["Algorithm"] == algorithmsDict[optionAlg])]
+
+    st.write(f"#### {optionLang} - {optionAlg}")
+
+    # Create the bar trace for the 'Energy' values
+    bar_trace = go.Bar(
+        x=filtered_data['Size'],
+        y=filtered_data['Package'],
+        name='Energy (Joules)',
+    )
+
+    # Create the line trace for the 'Time' values
+    line_trace = go.Scatter(
+        x=filtered_data['Size'],
+        y=filtered_data['Time(sec)'],
+        name='Time (sec)',
+        yaxis='y2',
+    )
+
+    # Create the data list with both traces
+    data = [bar_trace, line_trace]
+
+    # Create the layout with two y-axes
+    layout = go.Layout(
+        xaxis=dict(title='Size'),
+        yaxis=dict(title='Energy (Joules)'),
+        yaxis2=dict(title='Time (sec)', overlaying='y', side='right')
+    )
+
+    # Create the figure
+    fig = go.Figure(data=data, layout=layout)
+
+    # Show the plot using Streamlit's plotly_chart function
+    st.plotly_chart(fig)
+
+
+def showBarLinePlotLanguageEnergyMemoryPerSize(df, optionAlg, optionLang):
+    # Filter the data by language and algorithm
+    filtered_data = df[(df['Language'] == optionLang) & (df["Algorithm"] == algorithmsDict[optionAlg])]
+
+    st.write(f"#### {optionLang} - {optionAlg}")
+
+    # Create the bar trace for the 'Energy' values
+    bar_trace = go.Bar(
+        x=filtered_data['Size'],
+        y=filtered_data['Package'],
+        name='Energy (Joules)',
+    )
+
+    # Create the line trace for the 'Memory' values
+    line_trace = go.Scatter(
+        x=filtered_data['Size'],
+        y=filtered_data['Memory(MB)'],
+        name='Memory (MB)',
+        yaxis='y2',
+    )
+
+    # Create the data list with both traces
+    data = [bar_trace, line_trace]
+
+    # Create the layout with two y-axes
+    layout = go.Layout(
+        xaxis=dict(title='Size'),
+        yaxis=dict(title='Energy (Joules)'),
+        yaxis2=dict(title='Memory (MB)', overlaying='y', side='right')
+    )
+
+    # Create the figure
+    fig = go.Figure(data=data, layout=layout)
+
+    # Show the plot using Streamlit's plotly_chart function
+    st.plotly_chart(fig)

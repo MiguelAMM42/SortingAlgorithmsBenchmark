@@ -1,5 +1,5 @@
 import streamlit as st
-from helpers.variables import sizes, style, algorithmsDict
+from helpers.variables import sizes, style, algorithmsDict, languages
 from helpers.plots import *
 
 
@@ -45,6 +45,78 @@ def BarLinePlotLanguageEnergyTimeUI(meanDF):
     with col1:
         optionAlgBLPLET = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="barlineplot_algorithm_energy_time")
     with col2:
-        optionSizeBLPLET = st.selectbox('Select input size', sizes, key="barlineplot_algorithm_size")
+        optionSizeBLPLET = st.selectbox('Select input size', sizes, key="barlineplot_energy_size")
 
     showBarLinePlotLanguageEnergyTime(meanDF, optionSizeBLPLET, optionAlgBLPLET)
+
+
+def BarLinePlotLanguageEnergyMemoryUI(meanDF):
+    col1, col2 = st.columns(2)
+
+    with col1:
+        optionAlgBLPLEM = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="barlineplot_algorithm_energy_memory")
+    with col2:
+        optionSizeBLPLEM = st.selectbox('Select input size', sizes, key="barlineplot_energy_memory")
+
+    showBarLinePlotLanguageEnergyMemory(meanDF, optionSizeBLPLEM, optionAlgBLPLEM)
+
+
+
+def BarPlotTimeLanguageUI(completeDF):
+    optionLangBPTL = st.selectbox('Select language',languages, key="barplot_language_time")
+    showBarPlotTimeLanguage(completeDF, optionLangBPTL)
+
+
+def BarPlotEnergyLanguageUI(completeDF):
+    optionLangBPTE = st.selectbox('Select language',languages, key="barplot_language_energy")
+    showBarPlotEnergyLanguage(completeDF, optionLangBPTE)
+
+
+
+def BarPlotMemoryLanguageUI(completeDF):
+    optionLangBPML = st.selectbox('Select language',languages, key="barplot_language_memory")
+    showBarPlotMemoryLanguage(completeDF, optionLangBPML)
+
+
+def BarLinePlotLanguageEnergyTimePerAlgorithmUI(meanDF):
+    col1, col2 = st.columns(2)
+
+    with col1:
+        optionLangBLPLET = st.selectbox('Select language', languages, key="barlineplot_language_energy_time")
+    with col2:
+        optionSizeBLPLEM = st.selectbox('Select input size', sizes, key="barlineplot_energy_time")
+        
+    showBarLinePlotLanguageEnergyTimePerAlgorithm(meanDF, optionSizeBLPLEM, optionLangBLPLET)
+
+
+def BarLinePlotLanguageEnergyMemoryPerAlgorithmUI(meanDF):
+    col1, col2 = st.columns(2)
+
+    with col1:
+        optionLangBLPLEM = st.selectbox('Select language', languages, key="barlineplot_language_energy_memory")
+    with col2:
+        optionSizeBLPLEM = st.selectbox('Select input size', sizes, key="barlineplot_energy_memory_language")
+        
+    showBarLinePlotLanguageEnergyMemoryPerAlgorithm(meanDF, optionSizeBLPLEM, optionLangBLPLEM)
+
+
+def BarLinePlotLanguageEnergyTimePerSizeUI(meanDF):
+    col1, col2 = st.columns(2)
+
+    with col1:
+        optionLangBLPLET = st.selectbox('Select language', languages, key="barlineplot_language_energy_time_size")
+    with col2:
+        optionAlgBLPLET = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="barlineplot_energy_time_size")
+        
+    showBarLinePlotLanguageEnergyTimePerSize(meanDF, optionAlgBLPLET, optionLangBLPLET)
+
+
+def BarLinePlotLanguageEnergyMemoryPerSizeUI(meanDF):
+    col1, col2 = st.columns(2)
+
+    with col1:
+        optionLangBLPLEM = st.selectbox('Select language', languages, key="barlineplot_language_energy_memory_size")
+    with col2:
+        optionAlgBLPLEM = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="barlineplot_energy_memory_language_size")
+
+    showBarLinePlotLanguageEnergyMemoryPerSize(meanDF, optionAlgBLPLEM, optionLangBLPLEM)
