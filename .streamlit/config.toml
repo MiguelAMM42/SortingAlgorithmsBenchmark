@@ -1,0 +1,5 @@
+# .streamlit/config.toml
+
+[server]
+enableStaticServing = true
+browserTitle = "Sorting Algorithms Benchmarking"
