@@ -17,7 +17,7 @@ with open(__meanPath__, "r") as fCSVMean:
 # ---------------------------------------------------- #
 
 
-st.title("Sorting Algorithms Benchmarking")
+st.title("Sorting Algorithms Benchmarking :: Algorithms without Powercap")
 
 st.header("Main Plots")
 
