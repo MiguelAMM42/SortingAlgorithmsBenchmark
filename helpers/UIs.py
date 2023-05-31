@@ -120,3 +120,10 @@ def BarLinePlotLanguageEnergyMemoryPerSizeUI(meanDF):
         optionAlgBLPLEM = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="barlineplot_energy_memory_language_size")
 
     showBarLinePlotLanguageEnergyMemoryPerSize(meanDF, optionAlgBLPLEM, optionLangBLPLEM)
+
+
+def DataInfoUI(completeDF,meanDF):
+    st.subheader("Dataframe with complete data")
+    st.dataframe(completeDF)
+    st.subheader("Dataframe with mean values")
+    st.dataframe(meanDF)

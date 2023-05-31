@@ -19,6 +19,14 @@ with open(__meanPath__, "r") as fCSVMean:
 
 st.title("Sorting Algorithms Benchmarking :: Compile without Powercap")
 
+st.divider()
+
+st.header("Data")
+
+DataInfoUI(completeDF,meanDF)
+
+st.divider()
+
 st.header("Main Plots")
 
 ScatterPlotEnergyTimeUI(completeDF, meanDF)
