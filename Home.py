@@ -2,6 +2,7 @@ import streamlit as st
 import os
 import base64
 from st_pages import Page, show_pages, add_page_title, Section
+from streamlit import components
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -41,14 +42,26 @@ show_pages(
     ]
 )
 
+
+def render_pdf(pdf_url):
+    st.markdown(f'<iframe src="https://docs.google.com/viewer?url={pdf_url}&embedded=true" width="900" height="1000" style="border: none;"></iframe>', unsafe_allow_html=True)
+
+
+
 # Paper PDF
 st.header("Our paper")
 pdf_filename = "StrategicProgramming.pdf"
 pdf_path = os.path.join(APP_ROOT, f"static/{pdf_filename}")
 pdf_data = open(pdf_path, "rb").read()
 pdf_base64 = base64.b64encode(pdf_data).decode("utf-8")
-pdf_display = F'<iframe src="data:application/pdf;base64,{pdf_base64}" width="900" height="1000" type="application/pdf"></iframe>'
-st.markdown(pdf_display, unsafe_allow_html=True)
+#pdf_display = F'<iframe src="data:application/pdf;base64,{pdf_base64}" width="900" height="1000" type="application/pdf"></iframe>'
+#st.markdown(pdf_display, unsafe_allow_html=True)
+
+
+pdf_url = "https://raw.githubusercontent.com/franl08/CV/main/CV-Francisco-Neves.pdf"
+render_pdf(pdf_url)
+
+
 
 # Add a download button for the paper
 def download_file(file_path, file_name):
