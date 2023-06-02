@@ -1,17 +1,21 @@
 import streamlit as st
-from helpers.variables import sizes, style, algorithmsDict, languages
+from helpers.variables import sizes, style, algorithmsDict, languages, languagesCompile
 from helpers.plots import *
 
 
-def ScatterPlotEnergyTimeUI(completeDF, meanDF):
+# change all the UIs to have the have default values for the selectboxes
+
+def ScatterPlotEnergyTimeUI(completeDF, meanDF,typeSection, typePowercap):
     col1, col2, col3 = st.columns(3)
 
+    optionAlgSPET, optionSizeSPET, optionStyleSPET = None, None, None
+
     with col1:
-        optionSizeSPET = st.selectbox('Select input size', sizes, key="scatterplot_input_size")
+        optionSizeSPET = st.selectbox('Select input size', sizes, key="scatterplot_input_size"+typeSection+typePowercap)
     with col2:
-        optionAlgSPET = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="scatterplot_algorithm_energy_time")
+        optionAlgSPET = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="scatterplot_algorithm_energy_time"+typeSection+typePowercap)
     with col3:
-        optionStyleSPET = st.selectbox('Select style', style, key="scatterplot_style")
+        optionStyleSPET = st.selectbox('Select style', style, key="scatterplot_style"+typeSection+typePowercap)
 
     if optionStyleSPET == "All Values":
         showDF = completeDF
@@ -21,8 +25,11 @@ def ScatterPlotEnergyTimeUI(completeDF, meanDF):
     showScatterPlotEnergyTime(showDF, optionSizeSPET, optionAlgSPET, optionStyleSPET)
 
 
-def BarPlotTimeSizeUI(completeDF):
-    optionAlgBPTS = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="barplot_algorithm_time_size")
+def BarPlotTimeSizeUI(completeDF,typeSection, typePowercap):
+
+    optionAlgBPTS = None
+
+    optionAlgBPTS = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="barplot_algorithm_time_size"+typeSection+typePowercap)
 
     # using completeDF or meanDF gives the same result
     showDF = completeDF
@@ -30,8 +37,11 @@ def BarPlotTimeSizeUI(completeDF):
     showBarPlotTimeSize(showDF, optionAlgBPTS)
 
 
-def BarPlotEnergySizeUI(completeDF):
-    optionAlgBPES = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="barplot_algorithm_energy_size")
+def BarPlotEnergySizeUI(completeDF,typeSection, typePowercap):
+
+    optionAlgBPES = None
+
+    optionAlgBPES = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="barplot_algorithm_energy_size"+typeSection+typePowercap)
 
     # using completeDF or meanDF gives the same result
     showDF = completeDF
@@ -39,111 +49,132 @@ def BarPlotEnergySizeUI(completeDF):
     showBarPlotEnergySize(showDF, optionAlgBPES)
 
 
-def BarLinePlotLanguageEnergyTimeUI(meanDF):
+def BarLinePlotLanguageEnergyTimeUI(meanDF,typeSection, typePowercap):
     col1, col2 = st.columns(2)
 
+    optionAlgBLPLET, optionSizeBLPLET = None, None
+
     with col1:
-        optionAlgBLPLET = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="barlineplot_algorithm_energy_time")
+        optionAlgBLPLET = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="barlineplot_algorithm_energy_time"+typeSection+typePowercap)
     with col2:
-        optionSizeBLPLET = st.selectbox('Select input size', sizes, key="barlineplot_energy_size")
+        optionSizeBLPLET = st.selectbox('Select input size', sizes, key="barlineplot_energy_size"+typeSection+typePowercap)
 
     showBarLinePlotLanguageEnergyTime(meanDF, optionSizeBLPLET, optionAlgBLPLET)
 
 
-def BarLinePlotLanguageEnergyMemoryUI(meanDF):
+def BarLinePlotLanguageEnergyMemoryUI(meanDF,typeSection, typePowercap):
     col1, col2 = st.columns(2)
 
+    optionAlgBLPLEM, optionSizeBLPLEM = None, None
+
     with col1:
-        optionAlgBLPLEM = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="barlineplot_algorithm_energy_memory")
+        optionAlgBLPLEM = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="barlineplot_algorithm_energy_memory"+typeSection+typePowercap)
     with col2:
-        optionSizeBLPLEM = st.selectbox('Select input size', sizes, key="barlineplot_energy_memory")
+        optionSizeBLPLEM = st.selectbox('Select input size', sizes, key="barlineplot_energy_memory"+typeSection+typePowercap)
 
     showBarLinePlotLanguageEnergyMemory(meanDF, optionSizeBLPLEM, optionAlgBLPLEM)
 
 
 
-def BarPlotTimeLanguageUI(completeDF,typeSection):
-    optionLangBPTL = st.selectbox('Select language',languages, key="barplot_language_time")
+def BarPlotTimeLanguageUI(completeDF,typeSection, typePowercap):
 
-    if typeSection == "compile" and optionLangBPTL == "Python":
-        st.warning("Python is not available for compilation time.")
+    optionLangBPTL = None
+    
+    if typeSection == "compile":
+        optionLangBPTL = st.selectbox('Select language',languagesCompile, key="barplot_language_time"+typeSection+typePowercap)
     else:
-        showBarPlotTimeLanguage(completeDF, optionLangBPTL)
+        optionLangBPTL = st.selectbox('Select language',languages, key="barplot_language_time"+typeSection+typePowercap)
+
+    showBarPlotTimeLanguage(completeDF, optionLangBPTL)
 
 
-def BarPlotEnergyLanguageUI(completeDF,typeSection):
-    optionLangBPTE = st.selectbox('Select language',languages, key="barplot_language_energy")
+def BarPlotEnergyLanguageUI(completeDF,typeSection, typePowercap):
 
-    if typeSection == "compile" and optionLangBPTE == "Python":
-        st.warning("Python is not available for compilation time.")
+    optionLangBPTE = None
+
+    if typeSection == "compile":
+        optionLangBPTE = st.selectbox('Select language',languagesCompile, key="barplot_language_energy"+typeSection+typePowercap)
     else:
-        showBarPlotEnergyLanguage(completeDF, optionLangBPTE)
+        optionLangBPTE = st.selectbox('Select language',languages, key="barplot_language_energy"+typeSection+typePowercap)
+
+    showBarPlotEnergyLanguage(completeDF, optionLangBPTE)
 
 
 
-def BarPlotMemoryLanguageUI(completeDF,typeSection):
-    optionLangBPML = st.selectbox('Select language',languages, key="barplot_language_memory")
+def BarPlotMemoryLanguageUI(completeDF,typeSection, typePowercap):
 
-    if typeSection == "compile" and optionLangBPML == "Python":
-        st.warning("Python is not available for compilation time.")
+    optionLangBPML = None
+
+    if typeSection == "compile":
+        optionLangBPML = st.selectbox('Select language',languagesCompile, key="barplot_language_memory"+typeSection+typePowercap)
     else:
-        showBarPlotMemoryLanguage(completeDF, optionLangBPML)
+        optionLangBPML = st.selectbox('Select language',languages, key="barplot_language_memory"+typeSection+typePowercap)
+
+    showBarPlotMemoryLanguage(completeDF, optionLangBPML)
 
 
-def BarLinePlotLanguageEnergyTimePerAlgorithmUI(meanDF,typeSection):
+def BarLinePlotLanguageEnergyTimePerAlgorithmUI(meanDF,typeSection, typePowercap):
     col1, col2 = st.columns(2)
 
+    optionLangBLPLET, optionSizeBLPLEM = None, None
+
     with col1:
-        optionLangBLPLET = st.selectbox('Select language', languages, key="barlineplot_language_energy_time")
+        if typeSection == "compile":
+            optionLangBLPLET = st.selectbox('Select language', languagesCompile, key="barlineplot_language_energy_time"+typeSection+typePowercap)
+        else:
+            optionLangBLPLET = st.selectbox('Select language', languages, key="barlineplot_language_energy_time"+typeSection+typePowercap)
     with col2:
-        optionSizeBLPLEM = st.selectbox('Select input size', sizes, key="barlineplot_energy_time")
+        optionSizeBLPLEM = st.selectbox('Select input size', sizes, key="barlineplot_energy_time"+typeSection+typePowercap)
         
-    if typeSection == "compile" and optionLangBLPLET == "Python":
-        st.warning("Python is not available for compilation time.")
-    else:
-        showBarLinePlotLanguageEnergyTimePerAlgorithm(meanDF, optionSizeBLPLEM, optionLangBLPLET)
+    showBarLinePlotLanguageEnergyTimePerAlgorithm(meanDF, optionSizeBLPLEM, optionLangBLPLET)
 
 
-def BarLinePlotLanguageEnergyMemoryPerAlgorithmUI(meanDF,typeSection):
+def BarLinePlotLanguageEnergyMemoryPerAlgorithmUI(meanDF,typeSection, typePowercap):
     col1, col2 = st.columns(2)
 
+    optionLangBLPLEM, optionSizeBLPLEM = None, None
+
     with col1:
-        optionLangBLPLEM = st.selectbox('Select language', languages, key="barlineplot_language_energy_memory")
+        if typeSection == "compile":
+            optionLangBLPLEM = st.selectbox('Select language', languagesCompile, key="barlineplot_language_energy_memory"+typeSection+typePowercap)
+        else:
+            optionLangBLPLEM = st.selectbox('Select language', languages, key="barlineplot_language_energy_memory"+typeSection+typePowercap)
     with col2:
-        optionSizeBLPLEM = st.selectbox('Select input size', sizes, key="barlineplot_energy_memory_language")
+        optionSizeBLPLEM = st.selectbox('Select input size', sizes, key="barlineplot_energy_memory_language"+typeSection+typePowercap)
         
-    if typeSection == "compile" and optionLangBLPLEM == "Python":
-        st.warning("Python is not available for compilation time.")
-    else:
-        showBarLinePlotLanguageEnergyMemoryPerAlgorithm(meanDF, optionSizeBLPLEM, optionLangBLPLEM)
+    showBarLinePlotLanguageEnergyMemoryPerAlgorithm(meanDF, optionSizeBLPLEM, optionLangBLPLEM)
 
 
-def BarLinePlotLanguageEnergyTimePerSizeUI(meanDF,typeSection):
+def BarLinePlotLanguageEnergyTimePerSizeUI(meanDF,typeSection, typePowercap):
     col1, col2 = st.columns(2)
 
+    optionAlgBLPLET, optionLangBLPLET = None, None
+
     with col1:
-        optionLangBLPLET = st.selectbox('Select language', languages, key="barlineplot_language_energy_time_size")
+        if typeSection == "compile":
+            optionLangBLPLET = st.selectbox('Select language', languagesCompile, key="barlineplot_language_energy_time_size"+typeSection+typePowercap)
+        else:
+            optionLangBLPLET = st.selectbox('Select language', languages, key="barlineplot_language_energy_time_size"+typeSection+typePowercap)
     with col2:
-        optionAlgBLPLET = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="barlineplot_energy_time_size")
+        optionAlgBLPLET = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="barlineplot_energy_time_size"+typeSection+typePowercap)
         
-    if typeSection == "compile" and optionLangBLPLET == "Python":
-        st.warning("Python is not available for compilation time.")
-    else:
-        showBarLinePlotLanguageEnergyTimePerSize(meanDF, optionAlgBLPLET, optionLangBLPLET)
+    showBarLinePlotLanguageEnergyTimePerSize(meanDF, optionAlgBLPLET, optionLangBLPLET)
 
 
-def BarLinePlotLanguageEnergyMemoryPerSizeUI(meanDF,typeSection):
+def BarLinePlotLanguageEnergyMemoryPerSizeUI(meanDF,typeSection, typePowercap):
     col1, col2 = st.columns(2)
 
-    with col1:
-        optionLangBLPLEM = st.selectbox('Select language', languages, key="barlineplot_language_energy_memory_size")
-    with col2:
-        optionAlgBLPLEM = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="barlineplot_energy_memory_language_size")
+    optionAlgBLPLEM, optionLangBLPLEM = None, None
 
-    if typeSection == "compile" and optionLangBLPLEM == "Python":
-        st.warning("Python is not available for compilation time.")
-    else:
-        showBarLinePlotLanguageEnergyMemoryPerSize(meanDF, optionAlgBLPLEM, optionLangBLPLEM)
+    with col1:
+        if typeSection == "compile":
+            optionLangBLPLEM = st.selectbox('Select language', languagesCompile, key="barlineplot_language_energy_memory_size"+typeSection+typePowercap)
+        else:
+            optionLangBLPLEM = st.selectbox('Select language', languages, key="barlineplot_language_energy_memory_size"+typeSection+typePowercap)
+    with col2:
+        optionAlgBLPLEM = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="barlineplot_energy_memory_language_size"+typeSection+typePowercap)
+
+    showBarLinePlotLanguageEnergyMemoryPerSize(meanDF, optionAlgBLPLEM, optionLangBLPLEM)
 
 
 def DataInfoUI(completeDF,meanDF):

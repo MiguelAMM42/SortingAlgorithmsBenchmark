@@ -21,7 +21,7 @@ with open(__ieeePath__, "r") as fCSVIEEE:
 # ---------------------------------------------------- #
 
 
-st.title("Sorting Algorithms Benchmarking :: Algorithms with Powercap")
+st.title("Sorting Algorithms Benchmarking :: Algorithms without Powercap")
 
 st.divider()
 
@@ -33,7 +33,7 @@ st.divider()
 
 st.header("Main Plots")
 
-ScatterPlotEnergyTimeUI(completeDF, meanDF)
+ScatterPlotEnergyTimeUI(completeDF, meanDF,"_compile_","powercap")
 
 st.divider()
 
@@ -41,46 +41,46 @@ st.header("Comparing Algorithms")
 
 st.subheader("By Time")
 
-BarPlotTimeSizeUI(completeDF)
+BarPlotTimeSizeUI(completeDF,"_compile_","powercap")
 
 st.subheader("By Energy Consumption")
 
-BarPlotEnergySizeUI(completeDF)
+BarPlotEnergySizeUI(completeDF,"_compile_","powercap")
 
 st.subheader("By Energy and Time")
 
-BarLinePlotLanguageEnergyTimeUI(meanDF)
+BarLinePlotLanguageEnergyTimeUI(meanDF,"_compile_","powercap")
 
 st.subheader("By Energy and Memory Peak Usage")
 
-BarLinePlotLanguageEnergyMemoryUI(meanDF)
+BarLinePlotLanguageEnergyMemoryUI(meanDF,"_compile_","powercap")
 
 st.header("Comparing Languages")
 
 st.subheader("By Time")
 
-BarPlotTimeLanguageUI(completeDF,"compile")
+BarPlotTimeLanguageUI(completeDF,"_compile_","powercap")
 
 st.subheader("By Energy Consumption")
 
-BarPlotEnergyLanguageUI(completeDF,"compile")
+BarPlotEnergyLanguageUI(completeDF,"_compile_","powercap")
 
 st.subheader("By Memory Peak Usage")
 
-BarPlotMemoryLanguageUI(completeDF,"compile")
+BarPlotMemoryLanguageUI(completeDF,"_compile_","powercap")
 
 st.subheader("By Energy and Time per Algorithm")
 
-BarLinePlotLanguageEnergyTimePerAlgorithmUI(meanDF,"compile")
+BarLinePlotLanguageEnergyTimePerAlgorithmUI(meanDF,"_compile_","powercap")
 
 st.subheader("By Energy and Memory Peak Usage per Algorithm")
 
-BarLinePlotLanguageEnergyMemoryPerAlgorithmUI(meanDF,"compile")
+BarLinePlotLanguageEnergyMemoryPerAlgorithmUI(meanDF,"_compile_","powercap")
 
 st.subheader("By Energy and Time per Size")
 
-BarLinePlotLanguageEnergyTimePerSizeUI(meanDF,"compile")
+BarLinePlotLanguageEnergyTimePerSizeUI(meanDF,"_compile_","powercap")
 
 st.subheader("By Energy and Memory Peak Usage per Size") #RAM ??? || why
 
-BarLinePlotLanguageEnergyMemoryPerSizeUI(meanDF,"compile")
+BarLinePlotLanguageEnergyMemoryPerSizeUI(meanDF,"_compile_","powercap")

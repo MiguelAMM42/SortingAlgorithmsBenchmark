@@ -1,5 +1,7 @@
 languages = ('C', 'C++', 'C#', 'Go','Haskell','Python', 'Rust', 'Swift')
 
+languagesCompile = ('C', 'C++', 'C#', 'Go','Haskell', 'Rust', 'Swift')
+
 algorithms = (
     "bubblesort",
     "cyclesort",

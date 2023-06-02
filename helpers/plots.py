@@ -259,7 +259,7 @@ def showBarPlotTimeLanguage(df,optionLanguage):
     df_time = filtered_data.groupby('Algorithm')['Time(sec)'].mean().reset_index()
 
     # Create the bar plot using Plotly Express
-    fig = px.bar(df_time, x='Algorithm', y='Time(sec)', title=optionLanguage)
+    fig = px.bar(df_time, x='Algorithm', y='Time(sec)')
     fig.update_yaxes(title='Time (sec)')
 
     # Show the plot using Streamlit
@@ -276,7 +276,7 @@ def showBarPlotEnergyLanguage(df,optionLanguage):
     df_energy = filtered_data.groupby('Algorithm')['Package'].mean().reset_index()
 
     # Create the bar plot using Plotly Express
-    fig = px.bar(df_energy, x='Algorithm', y='Package', title=optionLanguage)
+    fig = px.bar(df_energy, x='Algorithm', y='Package')
     fig.update_yaxes(title='Energy (Joules)')
 
     # Show the plot using Streamlit
@@ -292,7 +292,7 @@ def showBarPlotMemoryLanguage(df,optionLanguage):
     df_memory = filtered_data.groupby('Algorithm')['Memory(MB)'].mean().reset_index()
 
     # Create the bar plot using Plotly Express
-    fig = px.bar(df_memory, x='Algorithm', y='Memory(MB)', title=optionLanguage)
+    fig = px.bar(df_memory, x='Algorithm', y='Memory(MB)')
     fig.update_yaxes(title='Memory (MB)')
 
     # Show the plot using Streamlit
