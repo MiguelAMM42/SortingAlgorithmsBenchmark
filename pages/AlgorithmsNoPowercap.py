@@ -7,12 +7,16 @@ from helpers.UIs import *
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
+
 __completePath__ = os.path.join(APP_ROOT, f"../static/results/no_powercap/algorithms_clean.csv")
 __meanPath__ = os.path.join(APP_ROOT, f"../static/results/no_powercap/algorithms_averages.csv")
+__ieeePath__ = os.path.join(APP_ROOT, f"../static/IEEESpectrumTopProgrammingLanguages2022.csv")
 with open(__completePath__, "r") as fCSVComplete:
     completeDF = pd.read_csv(fCSVComplete)
 with open(__meanPath__, "r") as fCSVMean:
     meanDF = pd.read_csv(fCSVMean)
+with open(__ieeePath__, "r") as fCSVIEEE:
+    ieeeDF = pd.read_csv(fCSVIEEE)
 
 # ---------------------------------------------------- #
 
