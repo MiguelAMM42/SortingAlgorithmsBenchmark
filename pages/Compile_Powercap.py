@@ -59,28 +59,28 @@ st.header("Comparing Languages")
 
 st.subheader("By Time")
 
-BarPlotTimeLanguageUI(completeDF)
+BarPlotTimeLanguageUI(completeDF,"compile")
 
 st.subheader("By Energy Consumption")
 
-BarPlotEnergyLanguageUI(completeDF)
+BarPlotEnergyLanguageUI(completeDF,"compile")
 
 st.subheader("By Memory Peak Usage")
 
-BarPlotMemoryLanguageUI(completeDF)
+BarPlotMemoryLanguageUI(completeDF,"compile")
 
 st.subheader("By Energy and Time per Algorithm")
 
-BarLinePlotLanguageEnergyTimePerAlgorithmUI(meanDF)
+BarLinePlotLanguageEnergyTimePerAlgorithmUI(meanDF,"compile")
 
 st.subheader("By Energy and Memory Peak Usage per Algorithm")
 
-BarLinePlotLanguageEnergyMemoryPerAlgorithmUI(meanDF)
+BarLinePlotLanguageEnergyMemoryPerAlgorithmUI(meanDF,"compile")
 
 st.subheader("By Energy and Time per Size")
 
-BarLinePlotLanguageEnergyTimePerSizeUI(meanDF)
+BarLinePlotLanguageEnergyTimePerSizeUI(meanDF,"compile")
 
 st.subheader("By Energy and Memory Peak Usage per Size") #RAM ??? || why
 
-BarLinePlotLanguageEnergyMemoryPerSizeUI(meanDF)
+BarLinePlotLanguageEnergyMemoryPerSizeUI(meanDF,"compile")

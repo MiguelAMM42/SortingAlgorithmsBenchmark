@@ -1,23 +1,39 @@
 import streamlit as st
 import os
 import base64
-from st_pages import Page, show_pages, add_page_title
+from st_pages import Page, show_pages, add_page_title, Section
+from streamlit import components
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-st.title("Sorting Algorithms Benchmarking")
+# Center the content on the page
+# -- not working --
+#st.markdown(
+#    """
+#    <style>
+#    .centered {
+#        display: flex;
+#        flex-direction: column;
+#        align-items: center;
+#        justify-content: center;
+#        height: 100vh;
+#        text-align: center;
+#    }
+#    </style>
+#    """,
+#    unsafe_allow_html=True,
+#)
 
-# Optional -- adds the title and icon to the current page
-add_page_title()
+st.title("Sorting Algorithms Benchmarking")
 
 # Specify what pages should be shown in the sidebar, and what their titles and icons should be
 show_pages(
     [
         Page("Home.py", "Home", "🏠"),
-        Page("pages/AlgorithmsPowercap.py", "Algorithms :: Powercap", "📊"),
-        Page("pages/AlgorithmsNoPowercap.py", "Algorithms :: No Powercap", "📊"),
-        Page("pages/CompilePowercap.py", "Compile :: Powercap", "📊"),
-        Page("pages/CompileNoPowercap.py", "Compile :: No Powercap", "📊"),
+        Page("pages/Algorithms_Powercap.py", "Algorithms :: Powercap", "📊"),
+        Page("pages/Algorithms_No_Powercap.py", "Algorithms :: No Powercap", "📊"),
+        Page("pages/Compile_Powercap.py", "Compile :: Powercap", "📊"),
+        Page("pages/Compile_No_Powercap.py", "Compile :: No Powercap", "📊"),
     ]
 )
 
@@ -61,4 +77,6 @@ def download_file(file_path, file_name):
 
 st.markdown(download_file(pdf_path, pdf_filename), unsafe_allow_html=True)
 
-
+# Center the content on the page
+# -- not working --
+#st.markdown('<div class="centered">', unsafe_allow_html=True)

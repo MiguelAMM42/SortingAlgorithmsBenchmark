@@ -8,8 +8,8 @@ from helpers.UIs import *
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
-__completePath__ = os.path.join(APP_ROOT, f"../static/results/no_powercap/algorithms_clean.csv")
-__meanPath__ = os.path.join(APP_ROOT, f"../static/results/no_powercap/algorithms_averages.csv")
+__completePath__ = os.path.join(APP_ROOT, f"../static/results/no_powercap/compile_clean.csv")
+__meanPath__ = os.path.join(APP_ROOT, f"../static/results/no_powercap/compile_averages.csv")
 __ieeePath__ = os.path.join(APP_ROOT, f"../static/IEEESpectrumTopProgrammingLanguages2022.csv")
 with open(__completePath__, "r") as fCSVComplete:
     completeDF = pd.read_csv(fCSVComplete)
@@ -21,7 +21,7 @@ with open(__ieeePath__, "r") as fCSVIEEE:
 # ---------------------------------------------------- #
 
 
-st.title("Sorting Algorithms Benchmarking :: Algorithms without Powercap")
+st.title("Sorting Algorithms Benchmarking :: Compile without Powercap")
 
 st.divider()
 
@@ -59,37 +59,29 @@ st.header("Comparing Languages")
 
 st.subheader("By Time")
 
-BarPlotTimeLanguageUI(completeDF)
+BarPlotTimeLanguageUI(completeDF,"compile")
 
 st.subheader("By Energy Consumption")
 
-BarPlotEnergyLanguageUI(completeDF)
+BarPlotEnergyLanguageUI(completeDF,"compile")
 
 st.subheader("By Memory Peak Usage")
 
-BarPlotMemoryLanguageUI(completeDF)
+BarPlotMemoryLanguageUI(completeDF,"compile")
 
 st.subheader("By Energy and Time per Algorithm")
 
-BarLinePlotLanguageEnergyTimePerAlgorithmUI(meanDF)
+BarLinePlotLanguageEnergyTimePerAlgorithmUI(meanDF,"compile")
 
 st.subheader("By Energy and Memory Peak Usage per Algorithm")
 
-BarLinePlotLanguageEnergyMemoryPerAlgorithmUI(meanDF)
+BarLinePlotLanguageEnergyMemoryPerAlgorithmUI(meanDF,"compile")
 
 st.subheader("By Energy and Time per Size")
 
-BarLinePlotLanguageEnergyTimePerSizeUI(meanDF)
+BarLinePlotLanguageEnergyTimePerSizeUI(meanDF,"compile")
 
 st.subheader("By Energy and Memory Peak Usage per Size") #RAM ??? || why
 
-BarLinePlotLanguageEnergyMemoryPerSizeUI(meanDF)
-
-
-
-
-
-
-
-    
+BarLinePlotLanguageEnergyMemoryPerSizeUI(meanDF,"compile")
 
