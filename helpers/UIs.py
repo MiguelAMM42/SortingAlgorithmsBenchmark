@@ -1,6 +1,7 @@
 import streamlit as st
 from helpers.variables import sizes, style, algorithmsDict, languages, languagesCompile
 from helpers.plots import *
+from helpers.multicriteriaDecisionMaking import *
 
 
 # change all the UIs to have the have default values for the selectboxes
@@ -182,3 +183,59 @@ def DataInfoUI(completeDF,meanDF):
     st.dataframe(completeDF)
     st.subheader("Dataframe with mean values")
     st.dataframe(meanDF)
+
+def ParetoUI(meanDF,ieeeDF,typeSection, typePowercap):
+
+    # will be edited
+
+    # add the scoring from IEEE
+
+    meanDF = meanDF[meanDF['Size'] == 25000]
+    meanDF = meanDF[meanDF['Algorithm'] == 'bubblesort']
+
+    df = pd.DataFrame(columns=['Language', 'Energy', 'Time', 'Memory'])
+    df['Language'] = meanDF['Language']
+    df['Energy'] = meanDF['Package']
+    df['Time'] = meanDF['Time(sec)']
+    df['Memory'] = meanDF['Memory(MB)']
+
+    dict = {}
+
+    # for each langauge create list with values of energy, time and memory
+    for index, row in df.iterrows():
+        if row['Language'] not in dict:
+            dict[row['Language']] = []
+        dict[row['Language']] += [row['Energy'], row['Time'], row['Memory']]
+
+    showPareto(dict,[0,1,2],["min","min","min"])
+
+    
+
+def PrometheeUI(meanDF,ieeeDF,typeSection, typePowercap):
+
+    # will be edited
+
+    # add the scoring from IEEE
+
+    meanDF = meanDF[meanDF['Size'] == 25000]
+    meanDF = meanDF[meanDF['Algorithm'] == 'bubblesort']
+
+    df = pd.DataFrame(columns=['Language', 'Energy', 'Time', 'Memory'])
+    df['Language'] = meanDF['Language']
+    df['Energy'] = meanDF['Package']
+    df['Time'] = meanDF['Time(sec)']
+    df['Memory'] = meanDF['Memory(MB)']
+
+    dict = {}
+
+    # for each langauge create list with values of energy, time and memory
+    for index, row in df.iterrows():
+        if row['Language'] not in dict:
+            dict[row['Language']] = []
+        dict[row['Language']] += [row['Energy'], row['Time'], row['Memory']]
+
+
+    showPromethee(dict,[0.7,0.4,0.75],["min","min","min"])
+
+    
+

@@ -2,3 +2,5 @@ streamlit
 plotly
 pandas
 st_pages
+scikit-learn
+EasyMCDM
