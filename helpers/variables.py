@@ -25,6 +25,17 @@ algorithmsDict = {
     "Selection Sort": "selectionsort"
 }
 
+algorithmsDictInv = {
+    "bubblesort": "Bubble Sort",
+    "cyclesort": "Cycle Sort",
+    "heapsort": "Heap Sort",
+    "insertionsort": "Insertion Sort",
+    "mergesort": "Merge Sort",
+    "oddevensort": "Odd-Even Sort",
+    "quicksort": "Quick Sort",
+    "selectionsort": "Selection Sort"
+}
+
 sizes = (25000, 50000, 100000)
 
 sizeslst = [25000, 50000, 100000]

@@ -191,60 +191,94 @@ def ParetoUI(meanDF,ieeeDF,typeSection, typePowercap):
     if optionPareto == "By Language":
         col1, col2, col3 = st.columns(3)
 
-        optionAlgPareto, optionSizePareto = None, None
+        optionAlgParetoLang, optionSizeParetoLang, optionScoreLang = None, None, None
 
         with col1:
-            optionAlgPareto = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="pareto_algorithm"+typeSection+typePowercap)
+            optionAlgParetoLang = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="pareto_algorithm"+typeSection+typePowercap)
         with col2:
-            optionSizePareto = st.selectbox('Select input size', sizes, key="pareto_size_alg"+typeSection+typePowercap)
+            optionSizeParetoLang = st.selectbox('Select input size', sizes, key="pareto_size_alg"+typeSection+typePowercap)
         with col3:
-            optionScore = st.selectbox('Consider the 2022 IEEE Score?', ('Yes', 'No'), key="pareto_score"+typeSection+typePowercap)
+            optionScoreLang = st.selectbox('Consider the 2022 IEEE Score?', ('Yes', 'No'), key="pareto_score"+typeSection+typePowercap)
 
 
-        showParetoAlg(meanDF,ieeeDF,optionAlgPareto,optionSizePareto,optionScore)
+        showParetoAlg(meanDF,ieeeDF,optionAlgParetoLang,optionSizeParetoLang,optionScoreLang)
     
     else:
 
         col1, col2 = st.columns(2)
 
-        optionLangPareto, optionSizePareto = None, None
+        optionLangParetoAlg, optionSizeParetoAlg = None, None
 
         with col1:
             if typeSection == "compile":
-                optionLangPareto = st.selectbox('Select language', languagesCompile, key="pareto_language"+typeSection+typePowercap)
+                optionLangParetoAlg = st.selectbox('Select language', languagesCompile, key="pareto_language"+typeSection+typePowercap)
             else:
-                optionLangPareto = st.selectbox('Select language', languages, key="pareto_language"+typeSection+typePowercap)
+                optionLangParetoAlg = st.selectbox('Select language', languages, key="pareto_language"+typeSection+typePowercap)
         with col2:
-            optionSizePareto = st.selectbox('Select input size', sizes, key="pareto_size_lang"+typeSection+typePowercap)
+            optionSizeParetoAlg = st.selectbox('Select input size', sizes, key="pareto_size_lang"+typeSection+typePowercap)
 
-        showParetoLang(meanDF,optionLangPareto,optionSizePareto)
+        showParetoLang(meanDF,optionLangParetoAlg,optionSizeParetoAlg)
 
 
 def PrometheeUI(meanDF,ieeeDF,typeSection, typePowercap):
 
-    # will be edited
+    optionPromethee = st.selectbox('How do you want to see the promethee?', ('By Language', 'By Algorithm'), key="promethee_option"+typeSection+typePowercap)
 
-    # add the scoring from IEEE
+    if optionPromethee == "By Language":
+        col1, col2= st.columns(2)
 
-    meanDF = meanDF[meanDF['Size'] == 25000]
-    meanDF = meanDF[meanDF['Algorithm'] == 'bubblesort']
+        optionAlgPromethee, optionSizePromethee = None, None
 
-    df = pd.DataFrame(columns=['Language', 'Energy', 'Time', 'Memory'])
-    df['Language'] = meanDF['Language']
-    df['Energy'] = meanDF['Package']
-    df['Time'] = meanDF['Time(sec)']
-    df['Memory'] = meanDF['Memory(MB)']
+        with col1:
+            optionAlgPromethee = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="promethee_algorithm"+typeSection+typePowercap)
+        with col2:
+            optionSizePromethee = st.selectbox('Select input size', sizes, key="promethee_size_alg"+typeSection+typePowercap)
 
-    dict = {}
+        # 4 sliders for the weights
+        st.write("Select the weights for the criteria")
+        colT, colE, colM, colS = st.columns(4)
 
-    # for each langauge create list with values of energy, time and memory
-    for index, row in df.iterrows():
-        if row['Language'] not in dict:
-            dict[row['Language']] = []
-        dict[row['Language']] += [row['Energy'], row['Time'], row['Memory']]
+        with colT:
+            weightTime = st.slider('Time', 0.0, 10.0, 1.0, 0.1)
+        with colE:
+            weightEnergy = st.slider('Energy', 0.0, 10.0, 1.0, 0.1)
+        with colM:
+            weightMemory = st.slider('Memory', 0.0, 10.0, 1.0, 0.1)
+        with colS:
+            weightScore = st.slider('Score', 0.0, 10.0, 1.0, 0.1)
 
+        weights = [weightEnergy, weightTime,weightMemory, weightScore]
 
-    showPromethee(dict,[0.1,0.8,0.1],["min","min","min"])
+        showPrometheeAlg(meanDF,ieeeDF,optionAlgPromethee,optionSizePromethee,weights)
+
+    else:
+
+        col1, col2 = st.columns(2)
+
+        optionLangPromethee, optionSizePromethee = None, None
+
+        with col1:
+            if typeSection == "compile":
+                optionLangPromethee = st.selectbox('Select language', languagesCompile, key="promethee_language"+typeSection+typePowercap)
+            else:
+                optionLangPromethee = st.selectbox('Select language', languages, key="promethee_language"+typeSection+typePowercap)
+        with col2:
+            optionSizePromethee = st.selectbox('Select input size', sizes, key="promethee_size_lang"+typeSection+typePowercap)
+
+        # 3 sliders for the weights
+        st.write("Select the weights for the criteria")
+        colT, colE, colM = st.columns(3)
+
+        with colT:  
+            weightTime = st.slider('Time', 0.0, 10.0, 1.0, 0.1)
+        with colE:
+            weightEnergy = st.slider('Energy', 0.0, 10.0, 1.0, 0.1)
+        with colM:
+            weightMemory = st.slider('Memory', 0.0, 10.0, 1.0, 0.1)
+
+        weights = [weightEnergy,weightTime, weightMemory]
+
+        showPrometheeLang(meanDF,optionLangPromethee,optionSizePromethee, weights)
 
     
 

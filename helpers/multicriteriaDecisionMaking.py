@@ -4,7 +4,7 @@ from EasyMCDM.models.Promethee import Promethee
 import streamlit as st
 from helpers.variables import languages, sizeslst, algorithmsDict
 import pandas as pd
-from helpers.outputsMulticriteria import ParetoGraph
+from helpers.outputsMulticriteria import *
 
 def test(): #change to have correct values
     data = {
@@ -53,7 +53,7 @@ def showParetoAlg(meanDF,ieeeDF,optionAlgPareto,optionSizePareto,considerScore):
     else:
         res = p.solve(indexes=[0,1,2], prefs=["min","min","min"])
 
-    ParetoGraph(res)
+    ParetoGraph(res, "Language")
 
 
 def showParetoLang(meanDF,optionLangPareto,optionSizePareto):
@@ -77,15 +77,62 @@ def showParetoLang(meanDF,optionLangPareto,optionSizePareto):
     p = Pareto(data=dict, verbose=False) #False
     res = p.solve(indexes=[0,1,2], prefs=["min","min","min"])
 
-    ParetoGraph(res)
+    ParetoGraph(res, "Algorithm")
 
 
 
-def showPromethee(df, weights, prefs):
-    st.write(df)
+def showPrometheeAlg(meanDF,ieeeDF,optionAlgPromethee,optionSizePromethee,weights):
 
-    p = Promethee(data=df, verbose=False) #False
-    res = p.solve(weights=weights, prefs=prefs) #weights can be greater than 1
-    st.write(res)
+    meanDF = meanDF[meanDF['Algorithm'] == algorithmsDict[optionAlgPromethee]]
+    meanDF = meanDF[meanDF['Size'] == optionSizePromethee]
 
-    # show graph or text
+    df = pd.DataFrame(columns=['Language', 'Energy', 'Time', 'Memory', 'Score'])
+    df['Language'] = meanDF['Language']
+    df['Energy'] = meanDF['Package']
+    df['Time'] = meanDF['Time(sec)']
+    df['Memory'] = meanDF['Memory(MB)']
+
+    # from ieeeDF get the score for each language
+    for index,row in df.iterrows():
+        df.loc[index,'Score'] = ieeeDF.loc[ieeeDF['Language'] == row['Language']]['Score'].values[0]
+
+    dict = {}
+
+    # for each langauge create list with values of energy, time and memory
+    for index, row in df.iterrows():
+        if row['Language'] not in dict:
+            dict[row['Language']] = []
+        dict[row['Language']] += [row['Energy'], row['Time'], row['Memory'], row['Score']]
+
+    p = Promethee(data=dict, verbose=False) #False
+    res = p.solve(weights=weights, prefs=["min","min","min","max"]) #weights can be greater than 1
+
+    PrometheeDF(res,"Language")
+
+def showPrometheeLang(meanDF,optionLangPromethee,optionSizePromethee,weights):
+
+    meanDF = meanDF[meanDF['Language'] == optionLangPromethee]
+    meanDF = meanDF[meanDF['Size'] == optionSizePromethee]
+
+    df = pd.DataFrame(columns=['Algorithm', 'Energy', 'Time', 'Memory'])
+    df['Algorithm'] = meanDF['Algorithm']
+    df['Energy'] = meanDF['Package']
+    df['Time'] = meanDF['Time(sec)']
+    df['Memory'] = meanDF['Memory(MB)']
+
+    dict = {}
+
+    # for each langauge create list with values of energy, time and memory
+    for index, row in df.iterrows():
+        if row['Algorithm'] not in dict:
+            dict[row['Algorithm']] = []
+        dict[row['Algorithm']] += [row['Energy'], row['Time'], row['Memory']]
+
+    p = Promethee(data=dict, verbose=False) #False
+    res = p.solve(weights=weights, prefs=["min","min","min"]) #weights can be greater than 1
+
+    PrometheeDF(res,"Algorithm")
+    
+
+
+
