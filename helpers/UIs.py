@@ -186,30 +186,39 @@ def DataInfoUI(completeDF,meanDF):
 
 def ParetoUI(meanDF,ieeeDF,typeSection, typePowercap):
 
-    # will be edited
+    optionPareto = st.selectbox('How do you want to see the pareto?', ('By Language', 'By Algorithm'), key="pareto_option"+typeSection+typePowercap)
 
-    # add the scoring from IEEE
+    if optionPareto == "By Language":
+        col1, col2, col3 = st.columns(3)
 
-    meanDF = meanDF[meanDF['Size'] == 25000]
-    meanDF = meanDF[meanDF['Algorithm'] == 'bubblesort']
+        optionAlgPareto, optionSizePareto = None, None
 
-    df = pd.DataFrame(columns=['Language', 'Energy', 'Time', 'Memory'])
-    df['Language'] = meanDF['Language']
-    df['Energy'] = meanDF['Package']
-    df['Time'] = meanDF['Time(sec)']
-    df['Memory'] = meanDF['Memory(MB)']
+        with col1:
+            optionAlgPareto = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="pareto_algorithm"+typeSection+typePowercap)
+        with col2:
+            optionSizePareto = st.selectbox('Select input size', sizes, key="pareto_size_alg"+typeSection+typePowercap)
+        with col3:
+            optionScore = st.selectbox('Consider the 2022 IEEE Score?', ('Yes', 'No'), key="pareto_score"+typeSection+typePowercap)
 
-    dict = {}
 
-    # for each langauge create list with values of energy, time and memory
-    for index, row in df.iterrows():
-        if row['Language'] not in dict:
-            dict[row['Language']] = []
-        dict[row['Language']] += [row['Energy'], row['Time'], row['Memory']]
-
-    showPareto(dict,[0,1,2],["min","min","min"])
-
+        showParetoAlg(meanDF,ieeeDF,optionAlgPareto,optionSizePareto,optionScore)
     
+    else:
+
+        col1, col2 = st.columns(2)
+
+        optionLangPareto, optionSizePareto = None, None
+
+        with col1:
+            if typeSection == "compile":
+                optionLangPareto = st.selectbox('Select language', languagesCompile, key="pareto_language"+typeSection+typePowercap)
+            else:
+                optionLangPareto = st.selectbox('Select language', languages, key="pareto_language"+typeSection+typePowercap)
+        with col2:
+            optionSizePareto = st.selectbox('Select input size', sizes, key="pareto_size_lang"+typeSection+typePowercap)
+
+        showParetoLang(meanDF,optionLangPareto,optionSizePareto)
+
 
 def PrometheeUI(meanDF,ieeeDF,typeSection, typePowercap):
 
@@ -235,7 +244,7 @@ def PrometheeUI(meanDF,ieeeDF,typeSection, typePowercap):
         dict[row['Language']] += [row['Energy'], row['Time'], row['Memory']]
 
 
-    showPromethee(dict,[0.7,0.4,0.75],["min","min","min"])
+    showPromethee(dict,[0.1,0.8,0.1],["min","min","min"])
 
     
 

@@ -93,9 +93,9 @@ st.subheader("Pareto")
 
 ParetoUI(meanDF,ieeeDF,"_algorithms_","no_powercap")
 
-st.subheader("Promethee")
+#st.subheader("Promethee")
 
-PrometheeUI(meanDF,ieeeDF,"_algorithms_","no_powercap")
+#PrometheeUI(meanDF,ieeeDF,"_algorithms_","no_powercap")
 
 
 
