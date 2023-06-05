@@ -4,3 +4,4 @@ pandas
 st_pages
 scikit-learn
 EasyMCDM
+graphviz
