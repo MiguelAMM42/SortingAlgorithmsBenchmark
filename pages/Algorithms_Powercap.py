@@ -85,7 +85,25 @@ st.subheader("By Energy and Memory Peak Usage per Size") #RAM ??? || why
 
 BarLinePlotLanguageEnergyMemoryPerSizeUI(meanDF,"_algorithms_","powercap")
 
+st.divider()
 
+st.header("Multi-Criteria Decision Making")
+
+st.subheader("Pareto")
+
+ParetoUI(meanDF,ieeeDF,"_algorithms_","powercap")
+
+st.subheader("Promethee")
+
+PrometheeUI(meanDF,ieeeDF,"_algorithms_","powercap")
+
+st.subheader("Weighted Sum")
+
+WeightedSumUI(meanDF,ieeeDF,"_algorithms_","powercap")
+
+st.subheader("Electre  Iv/Is")
+
+ElectreUI(meanDF,ieeeDF,"_algorithms_","powercap")
 
 
 

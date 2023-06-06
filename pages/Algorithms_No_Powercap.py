@@ -101,6 +101,10 @@ st.subheader("Weighted Sum")
 
 WeightedSumUI(meanDF,ieeeDF,"_algorithms_","no_powercap")
 
+st.subheader("Electre  Iv/Is")
+
+ElectreUI(meanDF,ieeeDF,"_algorithms_","no_powercap")
+
 
 
 

@@ -81,7 +81,7 @@ def BarPlotTimeLanguageUI(completeDF,typeSection, typePowercap):
 
     optionLangBPTL = None
     
-    if typeSection == "compile":
+    if typeSection == "_compile_":
         optionLangBPTL = st.selectbox('Select language',languagesCompile, key="barplot_language_time"+typeSection+typePowercap)
     else:
         optionLangBPTL = st.selectbox('Select language',languages, key="barplot_language_time"+typeSection+typePowercap)
@@ -93,7 +93,7 @@ def BarPlotEnergyLanguageUI(completeDF,typeSection, typePowercap):
 
     optionLangBPTE = None
 
-    if typeSection == "compile":
+    if typeSection == "_compile_":
         optionLangBPTE = st.selectbox('Select language',languagesCompile, key="barplot_language_energy"+typeSection+typePowercap)
     else:
         optionLangBPTE = st.selectbox('Select language',languages, key="barplot_language_energy"+typeSection+typePowercap)
@@ -106,7 +106,7 @@ def BarPlotMemoryLanguageUI(completeDF,typeSection, typePowercap):
 
     optionLangBPML = None
 
-    if typeSection == "compile":
+    if typeSection == "_compile_":
         optionLangBPML = st.selectbox('Select language',languagesCompile, key="barplot_language_memory"+typeSection+typePowercap)
     else:
         optionLangBPML = st.selectbox('Select language',languages, key="barplot_language_memory"+typeSection+typePowercap)
@@ -120,7 +120,7 @@ def BarLinePlotLanguageEnergyTimePerAlgorithmUI(meanDF,typeSection, typePowercap
     optionLangBLPLET, optionSizeBLPLEM = None, None
 
     with col1:
-        if typeSection == "compile":
+        if typeSection == "_compile_":
             optionLangBLPLET = st.selectbox('Select language', languagesCompile, key="barlineplot_language_energy_time"+typeSection+typePowercap)
         else:
             optionLangBLPLET = st.selectbox('Select language', languages, key="barlineplot_language_energy_time"+typeSection+typePowercap)
@@ -136,7 +136,7 @@ def BarLinePlotLanguageEnergyMemoryPerAlgorithmUI(meanDF,typeSection, typePowerc
     optionLangBLPLEM, optionSizeBLPLEM = None, None
 
     with col1:
-        if typeSection == "compile":
+        if typeSection == "_compile_":
             optionLangBLPLEM = st.selectbox('Select language', languagesCompile, key="barlineplot_language_energy_memory"+typeSection+typePowercap)
         else:
             optionLangBLPLEM = st.selectbox('Select language', languages, key="barlineplot_language_energy_memory"+typeSection+typePowercap)
@@ -152,7 +152,7 @@ def BarLinePlotLanguageEnergyTimePerSizeUI(meanDF,typeSection, typePowercap):
     optionAlgBLPLET, optionLangBLPLET = None, None
 
     with col1:
-        if typeSection == "compile":
+        if typeSection == "_compile_":
             optionLangBLPLET = st.selectbox('Select language', languagesCompile, key="barlineplot_language_energy_time_size"+typeSection+typePowercap)
         else:
             optionLangBLPLET = st.selectbox('Select language', languages, key="barlineplot_language_energy_time_size"+typeSection+typePowercap)
@@ -168,7 +168,7 @@ def BarLinePlotLanguageEnergyMemoryPerSizeUI(meanDF,typeSection, typePowercap):
     optionAlgBLPLEM, optionLangBLPLEM = None, None
 
     with col1:
-        if typeSection == "compile":
+        if typeSection == "_compile_":
             optionLangBLPLEM = st.selectbox('Select language', languagesCompile, key="barlineplot_language_energy_memory_size"+typeSection+typePowercap)
         else:
             optionLangBLPLEM = st.selectbox('Select language', languages, key="barlineplot_language_energy_memory_size"+typeSection+typePowercap)
@@ -210,7 +210,7 @@ def ParetoUI(meanDF,ieeeDF,typeSection, typePowercap):
         optionLangParetoAlg, optionSizeParetoAlg = None, None
 
         with col1:
-            if typeSection == "compile":
+            if typeSection == "_compile_":
                 optionLangParetoAlg = st.selectbox('Select language', languagesCompile, key="pareto_language"+typeSection+typePowercap)
             else:
                 optionLangParetoAlg = st.selectbox('Select language', languages, key="pareto_language"+typeSection+typePowercap)
@@ -258,7 +258,7 @@ def PrometheeUI(meanDF,ieeeDF,typeSection, typePowercap):
         optionLangPromethee, optionSizePromethee = None, None
 
         with col1:
-            if typeSection == "compile":
+            if typeSection == "_compile_":
                 optionLangPromethee = st.selectbox('Select language', languagesCompile, key="promethee_language"+typeSection+typePowercap)
             else:
                 optionLangPromethee = st.selectbox('Select language', languages, key="promethee_language"+typeSection+typePowercap)
@@ -318,7 +318,7 @@ def WeightedSumUI(meanDF,ieeeDF,typeSection, typePowercap):
         optionLangWeightedSum, optionSizeWeightedSum = None, None
 
         with col1:
-            if typeSection == "compile":
+            if typeSection == "_compile_":
                 optionLangWeightedSum = st.selectbox('Select language', languagesCompile, key="weighted_sum_language_Alg"+typeSection+typePowercap)
             else:
                 optionLangWeightedSum = st.selectbox('Select language', languages, key="weighted_sum_language_Alg"+typeSection+typePowercap)
@@ -340,5 +340,188 @@ def WeightedSumUI(meanDF,ieeeDF,typeSection, typePowercap):
 
         showWeightedSumLang(meanDF,optionLangWeightedSum,optionSizeWeightedSum, weights)
 
+
+
+def vetoesMaxAlg(meanDF,optionLang,optionSize):
+
+    meanDF = meanDF[meanDF['Language'] == optionLang]
+    meanDF = meanDF[meanDF['Size'] == optionSize]
+
+    maxes = {}
+    maxes['Energy'] = meanDF['Package'].max()
+    maxes['Time'] = meanDF['Time(sec)'].max()
+    maxes['Memory'] = meanDF['Memory(MB)'].max()
+
+    return maxes
+
+def vetoesMaxLang(meanDF,ieeeDF,optionAlg,optionSize):
     
+    meanDF = meanDF[meanDF['Algorithm'] == algorithmsDict[optionAlg]]
+    meanDF = meanDF[meanDF['Size'] == optionSize]
+
+    maxes = {}
+    maxes['Energy'] = meanDF['Package'].max()
+    maxes['Time'] = meanDF['Time(sec)'].max()
+    maxes['Memory'] = meanDF['Memory(MB)'].max()
+    maxes['Score'] = ieeeDF['Score'].max()
+
+    return maxes
+
+
+
+def ElectreUI(meanDF,ieeeDF,typeSection, typePowercap):
+
+    optionElectre = st.selectbox('How do you want to see the electre?', ('By Language', 'By Algorithm'), key="electre_option"+typeSection+typePowercap)
+
+    if optionElectre == "By Language":
+
+        col1, col2 = st.columns(2)
+
+        optionAlgElectre, optionSizeElectre = None, None
+
+        with col1:
+    
+            optionAlgElectre = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="electre_algorithm"+typeSection+typePowercap)
+
+        with col2:
+
+            optionSizeElectre = st.selectbox('Select input size', sizes, key="electre_size_lang"+typeSection+typePowercap)
+
+        # 4 sliders for the weights
+        st.write("Select the weights for the criteria")
+        colT, colE, colM, colS = st.columns(4)
+
+        with colT:
+            weightTime = st.slider('Time', 0.0, 1.0, 0.25, 0.05, key="electre_time_Lang"+typeSection+typePowercap)
+        with colE:
+            weightEnergy = st.slider('Energy', 0.0, 1.0, 0.25, 0.05, key="electre_energy_Lang"+typeSection+typePowercap)
+        with colM:
+            weightMemory = st.slider('Memory', 0.0, 1.0, 0.25, 0.05, key="electre_memory_Lang"+typeSection+typePowercap)
+        with colS:
+            weightScore = st.slider('Score', 0.0, 1.0, 0.25, 0.05, key="electre_score_Lang"+typeSection+typePowercap)
+
+        weights = [weightEnergy, weightTime, weightMemory, weightScore]
+
+        if weights[0] + weights[1] + weights[2] + weights[3] != 1.0:
+            st.error("The sum of the weights must be 1.0")
+            return
+        
+        indifereceThreshold = st.slider('Indifference Threshold', 0.0, 1.0, 0.5, 0.05, key="electre_indiferece_Lang"+typeSection+typePowercap)
+
+        vetoesMaxDictLang = vetoesMaxLang(meanDF,ieeeDF, optionAlgElectre,optionSizeElectre)
+
+        # 4 sliders for the vetoes thresholds
+        st.write("Select the vetoes for the criteria")
+        colVT, colVE, colVM, colVS = st.columns(4)
+
+        with colVT:
+            vetoTime = st.slider('Time', 0.0, vetoesMaxDictLang['Time'], 0.0, 0.05, key="electre_veto_time_Lang"+typeSection+typePowercap)
+        with colVE:
+            vetoEnergy = st.slider('Energy', 0.0, vetoesMaxDictLang['Energy'], 0.0, 0.05, key="electre_veto_energy_Lang"+typeSection+typePowercap)
+        with colVM:
+            vetoMemory = st.slider('Memory', 0.0, vetoesMaxDictLang['Memory'], 0.0, 0.05, key="electre_veto_memory_Lang"+typeSection+typePowercap)
+        with colVS:
+            vetoScore = st.slider('Score', 0.0, vetoesMaxDictLang['Score'], 0.0, 0.05, key="electre_veto_score_Lang"+typeSection+typePowercap)
+
+        vetoes1 = [vetoEnergy, vetoTime, vetoMemory, vetoScore]
+
+        optionTypeElectre = st.selectbox('Select type of Electre', ("Electre Is", "Electre Iv"), key="electre_type_Lang"+typeSection+typePowercap)
+            
+        if optionTypeElectre == "Electre Is":
+            # 4 sliders for the preferences thresholds
+
+            st.write("Select the preferences thresholds for the criteria")
+
+            colITT, colITE, colITM, colITS = st.columns(4)
+
+            with colITT:
+                prefTime = st.slider('Time', 0.0, 10.0, 2.0, 0.05, key="electre_pref_time_Lang"+typeSection+typePowercap)
+            with colITE:
+                prefEnergy = st.slider('Energy', 0.0, 10.0, 2.0, 0.05, key="electre_pref_energy_Lang"+typeSection+typePowercap)
+            with colITM:
+                prefMemory = st.slider('Memory', 0.0, 10.0, 2.0, 0.05, key="electre_pref_memory_Lang"+typeSection+typePowercap)
+            with colITS:
+                prefScore = st.slider('Score', 0.0, 10.0, 2.0, 0.05, key="electre_pref_score_Lang"+typeSection+typePowercap)
+
+            preferencesTh1 = [prefEnergy, prefTime, prefMemory, prefScore]
+
+            showElectreAlg(meanDF,ieeeDF, optionAlgElectre,optionSizeElectre, weights,indifereceThreshold,preferencesTh1,vetoes1)
+
+        else:
+
+            showElectreAlg(meanDF,ieeeDF, optionAlgElectre,optionSizeElectre, weights,indifereceThreshold, None,vetoes1)
+
+    else:
+
+        col1, col2 = st.columns(2)
+
+        optionLangElectre, optionSizeElectre = None, None
+
+        with col1:
+            if typeSection == "_compile_":
+                optionLangElectre = st.selectbox('Select language', languagesCompile, key="electre_language"+typeSection+typePowercap)
+            else:
+                optionLangElectre = st.selectbox('Select language', languages, key="electre_language"+typeSection+typePowercap)
+
+        with col2:
+            optionSizeElectre = st.selectbox('Select input size', sizes, key="electre_size"+typeSection+typePowercap)
+            
+        # 3 sliders for the weights
+        st.write("Select the weights for the criteria")
+        colT, colE, colM = st.columns(3)
+
+        with colT:
+            weightTime = st.slider('Time', 0.0, 1.0, 0.40, 0.05, key="electre_time_Alg"+typeSection+typePowercap)
+        with colE:
+            weightEnergy = st.slider('Energy', 0.0, 1.0, 0.30, 0.05, key="electre_energy_Alg"+typeSection+typePowercap)
+        with colM:
+            weightMemory = st.slider('Memory', 0.0, 1.0, 0.30, 0.05, key="electre_memory_Alg"+typeSection+typePowercap)
+
+        weights = [weightEnergy,weightTime, weightMemory]
+
+        if weights[0] + weights[1] + weights[2] != 1.0:
+            st.error("The sum of the weights must be 1.0")
+            return
+        
+        indifereceThreshold = st.slider('Indifference Threshold', 0.0, 1.0, 0.5, 0.05, key="electre_indifereceThreshold_Alg"+typeSection+typePowercap)
+
+        optionTypeElectre = st.selectbox('Select type of Electre', ("Electre Is", "Electre Iv"), key="electre_type_Alg"+typeSection+typePowercap)
+
+        vetoesMaxDictAlg= vetoesMaxAlg(meanDF, optionLangElectre,optionSizeElectre)
+
+        # 3 sliders for the vetoes
+        st.write("Select the vetoes for the criteria")
+        colVT, colVE, colVM = st.columns(3)
+
+        with colVT:
+            vetoTime = st.slider('Time', 0.0, vetoesMaxDictAlg["Time"], 0.0, 0.05, key="electre_veto_time_Alg"+typeSection+typePowercap)
+        with colVE:
+            vetoEnergy = st.slider('Energy', 0.0, vetoesMaxDictAlg["Energy"], 0.0, 0.05, key="electre_veto_energy_Alg"+typeSection+typePowercap)
+        with colVM:
+            vetoMemory = st.slider('Memory', 0.0, vetoesMaxDictAlg["Memory"], 0.0, 0.05, key="electre_veto_memory_Alg"+typeSection+typePowercap)
+
+
+        vetoes2 = [vetoEnergy, vetoTime, vetoMemory]
+
+        if optionTypeElectre == "Electre Is":
+            # 3 sliders for the preferences thresholds
+
+            st.write("Select the preferences thresholds for the criteria")
+
+            colITT, colITE, colITM = st.columns(3)
+
+            with colITT:
+                prefTime = st.slider('Time', 0.0, 10.0, 2.0, 0.05, key="electre_pref_time_Alg"+typeSection+typePowercap)
+            with colITE:
+                prefEnergy = st.slider('Energy', 0.0, 10.0, 2.0, 0.05, key="electre_pref_energy_Alg"+typeSection+typePowercap)
+            with colITM:
+                prefMemory = st.slider('Memory', 0.0, 10.0, 2.0, 0.05, key="electre_pref_memory_Alg"+typeSection+typePowercap)
+
+            preferencesTh2 = [prefEnergy, prefTime, prefMemory]
+
+            showElectreLang(meanDF,optionLangElectre,optionSizeElectre, weights,indifereceThreshold, preferencesTh2,vetoes2)
+
+        else:
+
+            showElectreLang(meanDF,optionLangElectre,optionSizeElectre, weights,indifereceThreshold, None,vetoes2)
 

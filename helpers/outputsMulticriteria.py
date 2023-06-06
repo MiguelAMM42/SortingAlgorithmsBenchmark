@@ -17,20 +17,22 @@ def ParetoGraph(graphDict, col):
             else:
                 graph.edge(i,node)
 
-    st.graphviz_chart(graph)
+    st.graphviz_chart(graph, use_container_width=True)
 
 
 def PrometheeDF(promDict, col):
 
-    df = pd.DataFrame(columns=[col, 'Score'])
+    df = pd.DataFrame(columns=['Position',col, 'Score'])
+    pos = 0
     for elem in promDict["phi"]:
+        pos += 1
         if col == "Algorithm":
             first = algorithmsDictInv[elem[0]]
         else:
             first = elem[0]
-        df.loc[len(df)] = [first, elem[1]]
+        df.loc[len(df)] = [str(pos)+'º',first, elem[1]]
 
-    st.dataframe(df)
+    st.dataframe(df, hide_index=True ,use_container_width=True)
 
 
 def WeightedSumDF(wsLst, col):
@@ -38,14 +40,16 @@ def WeightedSumDF(wsLst, col):
     #reverse the list
     wsLst = wsLst[::-1]
 
-    df = pd.DataFrame(columns=[col, 'Score'])
+    df = pd.DataFrame(columns=['Position',col, 'Score'])
+    pos = 0
     for elem in wsLst:
+        pos += 1
         if col == "Algorithm":
             first = algorithmsDictInv[elem[1]]
         else:
             first = elem[1]
-        df.loc[len(df)] = [first, elem[2]]
+        df.loc[len(df)] = [str(pos)+'º',first, elem[2]]
 
-    st.dataframe(df)
+    st.dataframe(df, hide_index=True, use_container_width=True)
 
     
