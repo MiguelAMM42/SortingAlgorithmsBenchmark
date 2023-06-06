@@ -97,6 +97,12 @@ st.subheader("Promethee")
 
 PrometheeUI(meanDF,ieeeDF,"_algorithms_","no_powercap")
 
+st.subheader("Weighted Sum")
+
+WeightedSumUI(meanDF,ieeeDF,"_algorithms_","no_powercap")
+
+
+
 
 
 

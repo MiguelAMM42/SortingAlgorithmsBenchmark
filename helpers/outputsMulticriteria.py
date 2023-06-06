@@ -32,4 +32,20 @@ def PrometheeDF(promDict, col):
 
     st.dataframe(df)
 
+
+def WeightedSumDF(wsLst, col):
+
+    #reverse the list
+    wsLst = wsLst[::-1]
+
+    df = pd.DataFrame(columns=[col, 'Score'])
+    for elem in wsLst:
+        if col == "Algorithm":
+            first = algorithmsDictInv[elem[1]]
+        else:
+            first = elem[1]
+        df.loc[len(df)] = [first, elem[2]]
+
+    st.dataframe(df)
+
     

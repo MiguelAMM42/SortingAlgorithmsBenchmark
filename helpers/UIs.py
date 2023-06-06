@@ -239,13 +239,13 @@ def PrometheeUI(meanDF,ieeeDF,typeSection, typePowercap):
         colT, colE, colM, colS = st.columns(4)
 
         with colT:
-            weightTime = st.slider('Time', 0.0, 10.0, 1.0, 0.1)
+            weightTime = st.slider('Time', 0.0, 10.0, 1.0, 0.1, key="promethee_time_Lang"+typeSection+typePowercap)
         with colE:
-            weightEnergy = st.slider('Energy', 0.0, 10.0, 1.0, 0.1)
+            weightEnergy = st.slider('Energy', 0.0, 10.0, 1.0, 0.1, key="promethee_energy_Lang"+typeSection+typePowercap)
         with colM:
-            weightMemory = st.slider('Memory', 0.0, 10.0, 1.0, 0.1)
+            weightMemory = st.slider('Memory', 0.0, 10.0, 1.0, 0.1,key="promethee_memory_Lang"+typeSection+typePowercap)
         with colS:
-            weightScore = st.slider('Score', 0.0, 10.0, 1.0, 0.1)
+            weightScore = st.slider('Score', 0.0, 10.0, 1.0, 0.1,key="promethee_score_Lang"+typeSection+typePowercap)
 
         weights = [weightEnergy, weightTime,weightMemory, weightScore]
 
@@ -270,6 +270,66 @@ def PrometheeUI(meanDF,ieeeDF,typeSection, typePowercap):
         colT, colE, colM = st.columns(3)
 
         with colT:  
+            weightTime = st.slider('Time', 0.0, 10.0, 1.0, 0.1,key="promethee_time_Alg"+typeSection+typePowercap)
+        with colE:
+            weightEnergy = st.slider('Energy', 0.0, 10.0, 1.0, 0.1,key="promethee_energy_Alg"+typeSection+typePowercap)
+        with colM:
+            weightMemory = st.slider('Memory', 0.0, 10.0, 1.0, 0.1,key="promethee_memory_Alg"+typeSection+typePowercap)
+
+        weights = [weightEnergy,weightTime, weightMemory]
+
+        showPrometheeLang(meanDF,optionLangPromethee,optionSizePromethee, weights)
+
+
+def WeightedSumUI(meanDF,ieeeDF,typeSection, typePowercap):
+    optionWeightedSum = st.selectbox('How do you want to see the weighted sum?', ('By Language', 'By Algorithm'), key="weighted_sum_option"+typeSection+typePowercap)
+
+    if optionWeightedSum == "By Language":
+        col1, col2= st.columns(2)
+
+        optionAlgWeightedSum, optionSizeWeightedSum = None, None
+
+        with col1:
+            optionAlgWeightedSum = st.selectbox('Select algorithm', tuple(algorithmsDict.keys()), key="weighted_sum_algorithm"+typeSection+typePowercap)
+        with col2:
+            optionSizeWeightedSum = st.selectbox('Select input size', sizes, key="weighted_sum_size_alg"+typeSection+typePowercap)
+
+        # 4 sliders for the weights
+        st.write("Select the weights for the criteria")
+        colT, colE, colM, colS = st.columns(4)
+
+        with colT:
+            weightTime = st.slider('Time', 0.0, 10.0, 1.0, 0.1, key="weighted_sum_time_Lang"+typeSection+typePowercap)
+        with colE:
+            weightEnergy = st.slider('Energy', 0.0, 10.0, 1.0, 0.1, key="weighted_sum_energy_Lang"+typeSection+typePowercap)
+        with colM:
+            weightMemory = st.slider('Memory', 0.0, 10.0, 1.0, 0.1, key="weighted_sum_memory_Lang"+typeSection+typePowercap)
+        with colS:
+            weightScore = st.slider('Score', 0.0, 10.0, 1.0, 0.1, key="weighted_sum_score_Lang"+typeSection+typePowercap)
+
+        weights = [weightEnergy, weightTime,weightMemory, weightScore]
+
+        showWeightedSumAlg(meanDF,ieeeDF,optionAlgWeightedSum,optionSizeWeightedSum,weights)
+
+    else:
+
+        col1, col2 = st.columns(2)
+
+        optionLangWeightedSum, optionSizeWeightedSum = None, None
+
+        with col1:
+            if typeSection == "compile":
+                optionLangWeightedSum = st.selectbox('Select language', languagesCompile, key="weighted_sum_language_Alg"+typeSection+typePowercap)
+            else:
+                optionLangWeightedSum = st.selectbox('Select language', languages, key="weighted_sum_language_Alg"+typeSection+typePowercap)
+        with col2:
+            optionSizeWeightedSum = st.selectbox('Select input size', sizes, key="weighted_sum_size_lang_Alg"+typeSection+typePowercap)
+
+        # 3 sliders for the weights
+        st.write("Select the weights for the criteria")
+        colT, colE, colM = st.columns(3)
+
+        with colT:  
             weightTime = st.slider('Time', 0.0, 10.0, 1.0, 0.1)
         with colE:
             weightEnergy = st.slider('Energy', 0.0, 10.0, 1.0, 0.1)
@@ -278,7 +338,7 @@ def PrometheeUI(meanDF,ieeeDF,typeSection, typePowercap):
 
         weights = [weightEnergy,weightTime, weightMemory]
 
-        showPrometheeLang(meanDF,optionLangPromethee,optionSizePromethee, weights)
+        showWeightedSumLang(meanDF,optionLangWeightedSum,optionSizeWeightedSum, weights)
 
     
 
