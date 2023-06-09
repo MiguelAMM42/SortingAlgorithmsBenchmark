@@ -8,7 +8,7 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # Center the content on the page
 # -- not working --
-#st.markdown(
+# st.markdown(
 #    """
 #    <style>
 #    .centered {
@@ -22,7 +22,7 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 #    </style>
 #    """,
 #    unsafe_allow_html=True,
-#)
+# )
 
 st.title("Sorting Algorithms Benchmarking")
 
@@ -31,7 +31,8 @@ show_pages(
     [
         Page("Home.py", "Home", "🏠"),
         Page("pages/Algorithms_Powercap.py", "Algorithms :: Powercap", "📊"),
-        Page("pages/Algorithms_No_Powercap.py", "Algorithms :: No Powercap", "📊"),
+        Page("pages/Algorithms_No_Powercap.py",
+             "Algorithms :: No Powercap", "📊"),
         Page("pages/Compile_Powercap.py", "Compile :: Powercap", "📊"),
         Page("pages/Compile_No_Powercap.py", "Compile :: No Powercap", "📊"),
     ]
@@ -39,23 +40,22 @@ show_pages(
 
 
 def render_pdf(pdf_url):
-    st.markdown(f'<iframe src="https://docs.google.com/viewer?url={pdf_url}&embedded=true" width="900" height="1000" style="border: none;"></iframe>', unsafe_allow_html=True)
-
+    st.markdown(
+        f'<iframe src="https://docs.google.com/viewer?url={pdf_url}&embedded=true" width="900" height="1000" style="border: none;"></iframe>', unsafe_allow_html=True)
 
 
 # Paper PDF
 st.header("Our paper")
-pdf_filename = "StrategicProgramming.pdf"
+pdf_filename = "On_the_Energy_Efficiency_of_Sorting_Algorithms.pdf"
 pdf_path = os.path.join(APP_ROOT, f"static/{pdf_filename}")
 pdf_data = open(pdf_path, "rb").read()
 pdf_base64 = base64.b64encode(pdf_data).decode("utf-8")
-#pdf_display = F'<iframe src="data:application/pdf;base64,{pdf_base64}" width="900" height="1000" type="application/pdf"></iframe>'
-#st.markdown(pdf_display, unsafe_allow_html=True)
+# pdf_display = F'<iframe src="data:application/pdf;base64,{pdf_base64}" width="900" height="1000" type="application/pdf"></iframe>'
+# st.markdown(pdf_display, unsafe_allow_html=True)
 
 
-pdf_url = "https://raw.githubusercontent.com/franl08/CV/main/CV-Francisco-Neves.pdf"
+pdf_url = "https://github.com/MiguelAMM42/SortingAlgorithmsBenchmark/blob/main/static/On_the_Energy_Efficiency_of_Sorting_Algorithms.pdf"
 render_pdf(pdf_url)
-
 
 
 # Add a download button for the paper
@@ -75,8 +75,9 @@ def download_file(file_path, file_name):
     return button_html
 
 
-st.markdown(download_file(pdf_path, pdf_filename), unsafe_allow_html=True)
+st.markdown(download_file(
+    pdf_path, "On the Energy Efficiency of Sorting Algorithms"), unsafe_allow_html=True)
 
 # Center the content on the page
 # -- not working --
-#st.markdown('<div class="centered">', unsafe_allow_html=True)
+# st.markdown('<div class="centered">', unsafe_allow_html=True)
