@@ -53,8 +53,8 @@ pdf_base64 = base64.b64encode(pdf_data).decode("utf-8")
 # pdf_display = F'<iframe src="data:application/pdf;base64,{pdf_base64}" width="900" height="1000" type="application/pdf"></iframe>'
 # st.markdown(pdf_display, unsafe_allow_html=True)
 
-
-pdf_url = "https://github.com/MiguelAMM42/SortingAlgorithmsBenchmark/blob/main/static/On_the_Energy_Efficiency_of_Sorting_Algorithms.pdf"
+pdf_url = "https://raw.githubusercontent.com/MiguelAMM42/SortingAlgorithmsBenchmark/master/static/On_the_Energy_Efficiency_of_Sorting_Algorithms.pdf"
+#pdf_url = "https://github.com/MiguelAMM42/SortingAlgorithmsBenchmark/blob/main/static/On_the_Energy_Efficiency_of_Sorting_Algorithms.pdf"
 render_pdf(pdf_url)
 
 
