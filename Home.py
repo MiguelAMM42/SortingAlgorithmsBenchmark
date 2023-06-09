@@ -65,7 +65,7 @@ def download_file(file_path, file_name):
     b64 = base64.b64encode(file_data).decode("utf-8")
 
     button_html = f"""
-    <a href="data:application/octet-stream;base64,{b64}" download="{file_name}">
+    <a href="data:application/octet-stream;base64,{b64}" download="On_the_Energy_Efficiency_of_Sorting_Algorithms.pdf">
         <button type="button" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">
             Download {file_name}
         </button>
